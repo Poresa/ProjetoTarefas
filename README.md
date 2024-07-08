@@ -1,0 +1,2 @@
+Estou utilizando Python e Pandas para filtrar dados do banco de dados do sistema de tarefas de uma empresa. 
+O principal objetivo é praticar e aprender recursos da biblioteca Pandas para tratar dados e gerar gráficos. 
