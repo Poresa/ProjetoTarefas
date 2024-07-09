@@ -1,13 +1,13 @@
 import pandas as pd
 from matplotlib import pyplot as plt
 
-## Lendo colunas csv do bando de dados
+## Lendo colunas csv do banco de dados
 ## Reading columns
 df_tasks = pd.read_csv('rise_tasks.csv', usecols = ['id', 'title', 'description', 'project_id', 'assigned_to', 'deadline', 'status_id', 'priority_id', 'start_date', 'created_date', 'status_changed_at'])
 df_projects = pd.read_csv('rise_projects.csv', usecols = ['id', 'title'])
 df_status_info = pd.read_csv('rise_task_status.csv', usecols = ['id', 'title'])
 
-## Alterando o nome das colunas antes de dar merge
+## Alterando o nome das colunas antes do merge merge
 ## Changing colomun name
 df_projects.rename(columns = {'title': 'project_title', 'id': 'project_id'}, inplace = True)
 df_status_info.rename(columns = {'title': 'status_name', 'id': 'status_id'}, inplace = True)
@@ -42,7 +42,7 @@ column_status_frequency = df_plot1.values
 ## Plotando os resultados
 ## Plotting results
 plt.barh(column_status_name, column_status_frequency)
-plt.ylabel('Status Name')
-plt.xlabel('Number of tasks')
-plt.title('Number of tasks by status')
+plt.ylabel('Nome do status')
+plt.xlabel('Número de tarefas')
+plt.title('Quantidade de tarefas por status')
 plt.show()
