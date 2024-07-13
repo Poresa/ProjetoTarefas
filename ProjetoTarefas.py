@@ -63,6 +63,36 @@ def plot_status_tarefa():
 	plt.title('Quantidade de tarefas por status')
 	plt.show()
 
-## Chamando função de plot desejada
-## Calling function to plot
-plot_pautas_usuario()
+## Transformando em tempo para calcular
+## Transforming to datetime to calculate
+df_tasks['deadline'] = pd.to_datetime(df_tasks['deadline'])
+df_tasks['created_date'] = pd.to_datetime(df_tasks['created_date'])
+
+## Criando a coluna de idade da tarefa
+## Creating the column age for the tasks 
+df_tasks['task_age'] = df_tasks['deadline'] - df_tasks['created_date']
+df_tasks['task_age'] = df_tasks['task_age'].dt.days
+
+## Filtrando por idade e status
+## Filtering by age and status
+df_age_progress = df_tasks.query('status_name == "Em progresso" and task_age > 30')[['project_title', 'title', 'task_age']]
+df_age_revision = df_tasks.query('status_name == "Em Revisão" and task_age > 30')[['project_title', 'title', 'task_age']]
+
+## Contando quantas das tarefas acima são do mesmo projeto
+## Status Em progresso
+## Status in progress
+df_plot_age_progress = df_age_progress.pivot_table(index = ['project_title'], aggfunc = 'size')
+df_plot_age_revision = df_age_revision.pivot_table(index = ['project_title'], aggfunc = 'size')
+
+## Status Em Revisão
+## Status in revision
+df_plot_age_revision = df_age_revision.pivot_table(index = ['project_title'], aggfunc = 'size')
+
+## Verificando informações sobre a idade das pautas
+## Média das idades
+mean_task_age = df_tasks['task_age'].mean()
+print(mean_task_age)
+
+## Mediana das idades
+median_task_age = df_tasks['task_age'].median()
+print(median_task_age)
